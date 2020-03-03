@@ -29,7 +29,7 @@ ol, ul {
 html {
   height: 100%;
   overflow: hidden;
-  background: linear-gradient(-230deg, rgb(6, 86, 117), rgb(105, 3, 3));
+  background: linear-gradient(-230deg, #0068A1, #DB0700);
 }
 body {
   line-height: 1;
@@ -51,7 +51,7 @@ body {
   align-items: center;
 }
 
-.circles {
+/* .circles {
   position: absolute;
   background-color: transparent;
   border-top-left-radius: 50%;
@@ -71,7 +71,7 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 #canvas {
   width: 85%;
