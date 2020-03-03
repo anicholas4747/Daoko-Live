@@ -32,7 +32,7 @@ addEventListener('resize', () => {
 });
 
 
-class MouseTracker {
+export class MouseTracker {
   constructor(x, y, radius, color){
     this.origX = x;
     this.origY = y;
@@ -89,18 +89,17 @@ class MouseTracker {
 const colors = ["#0068A1", "#DB0700", "#FFC513", "#EFFBFF", "#579CC2"];
 
 let liddleBuddies = [];
-let init = () => {
+export const init = () => {
   liddleBuddies = [];
   for(let i = 0; i < 200; i++){
     let radius = Math.floor(Math.random() * (7 - 3 + 1) + 3);
     let color = colors[Math.floor(Math.random() * 5)];
     liddleBuddies.push(new MouseTracker(1000, 500, radius, color));
   }
-  console.log(liddleBuddies);
 };
 
 // Animation Loop
-function animate() {
+export const animate = () => {
   requestAnimationFrame(animate);
   c.fillStyle = "rgba(255,255,255,0.05)";
   c.fillRect(0, 0, canvas.width, canvas.height);
@@ -108,9 +107,7 @@ function animate() {
   liddleBuddies.forEach(bud => {
    bud.update();
   });
-}
+};
 
 init();
 animate();
-
-export default MouseTracker;

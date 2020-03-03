@@ -76,4 +76,12 @@ body {
 #canvas {
   width: 85%;
   height: 85%;
+  background-color: #EEE;
+}
+
+#volume {
+  display: block;
+    margin: 0 auto;
+    position: relative;
+    top: -105px;
 }
