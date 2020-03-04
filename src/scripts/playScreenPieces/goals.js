@@ -1,5 +1,52 @@
+
 export const populateGoals = () => {
   const gameplayCanvas = document.getElementById("gameplay-canvas");
+  let pressedKeys = [];
+  addEventListener("keydown", (e) => {
+    switch (e.keyCode) {
+      case 69:
+        pressedKeys.push("e");
+        return;
+      case 70:
+        pressedKeys.push("f");
+        return;
+      case 86:
+        pressedKeys.push("v");
+        return;
+      case 78:
+        pressedKeys.push("n");
+        return;
+      case 74:
+        pressedKeys.push("j");
+        return;
+      case 73:
+        pressedKeys.push("i");
+        return;
+    }
+  });
+
+  addEventListener("keyup", (e) => {
+    switch (e.keyCode) {
+      case 69:
+        pressedKeys = pressedKeys.filter((el) => el !== "e");
+        return;
+      case 70:
+        pressedKeys = pressedKeys.filter((el) => el !== "f");
+        return;
+      case 86:
+        pressedKeys = pressedKeys.filter((el) => el !== "v");
+        return;
+      case 78:
+        pressedKeys = pressedKeys.filter((el) => el !== "n");
+        return;
+      case 74:
+        pressedKeys = pressedKeys.filter((el) => el !== "j");
+        return;
+      case 73:
+        pressedKeys = pressedKeys.filter((el) => el !== "i");
+        return;
+    }
+  });
 
   const c = gameplayCanvas.getContext('2d');
   gameplayCanvas.width = innerWidth;
@@ -15,54 +62,6 @@ export const populateGoals = () => {
   ];
 
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
-
-  let pressedKeys = [];
-
-  addEventListener("keydown", (e) => {
-    switch(e.keyCode){
-    case 69:
-      pressedKeys.push("e");
-      return;
-    case 70:
-      pressedKeys.push("f");
-      return;
-    case 86:
-      pressedKeys.push("v");
-      return;
-    case 78:
-      pressedKeys.push("n");
-      return;
-    case 74:
-      pressedKeys.push("j");
-      return;
-    case 73:
-      pressedKeys.push("i");
-      return;
-    }
-  });
-
-  addEventListener("keyup", (e) => {
-    switch(e.keyCode){
-    case 69:
-      pressedKeys = pressedKeys.filter((el) => el !== "e");
-      return;
-    case 70:
-      pressedKeys = pressedKeys.filter((el) => el !== "f");
-      return;
-    case 86:
-      pressedKeys = pressedKeys.filter((el) => el !== "v");
-      return;
-    case 78:
-      pressedKeys = pressedKeys.filter((el) => el !== "n");
-      return;
-    case 74:
-      pressedKeys = pressedKeys.filter((el) => el !== "j");
-      return;
-    case 73:
-      pressedKeys = pressedKeys.filter((el) => el !== "i");
-      return;
-    }
-  });
 
   class Goal {
     constructor(key, pos){
@@ -97,7 +96,7 @@ export const populateGoals = () => {
   const goals = [];
   const init = () => {
     for (let i = 0; i < 6; i++) {
-      let pos = goalPos[i]
+      let pos = goalPos[i];
       let key = goalKeys[i];
       goals.push(new Goal (key, pos));
     }

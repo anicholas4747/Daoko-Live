@@ -18,6 +18,7 @@ export const renderSongSelectScreen = () => {
   back.addEventListener("click", () => {
     newCanvas.remove();
     back.remove();
+    trackArt.remove();
     renderHomeScreen();
   });
 
