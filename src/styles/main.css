@@ -29,19 +29,44 @@ ol, ul {
 html {
   height: 100%;
   overflow: hidden;
-  background: linear-gradient(-230deg, #0068A1, #DB0700);
+  background: linear-gradient(-230deg, #85BDB6, #DB0700);
 }
 body {
   line-height: 1;
   min-height: 100%;
 }
 
+button {
+  cursor: pointer;
+  display: inline-block;
+  background: rgb(255,255,255);
+  background-image: linear-gradient(#85BDB6, #DB0700);
+  border-color: #FFC513;
+  color: #FFF;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+button:focus {
+  -webkit-appearance: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
 #screen {
+  position: relative;
   z-index: -1;
   width: 85vw;
   height: 40em;
   max-height: 60vw;
   margin: 55px auto;
+  margin-bottom: 0px;
   border: 5px solid #111;
   border-radius: 25px;
   background: linear-gradient(#DDD, #888);
@@ -73,15 +98,77 @@ body {
   }
 } */
 
-#canvas {
+.canvas {
+  position: absolute;
   width: 85%;
   height: 85%;
   background-color: #EEE;
 }
 
+.hidden {
+  position: absolute;
+  left: 1000%;
+}
+
 #volume {
   display: block;
-    margin: 0 auto;
-    position: relative;
-    top: -105px;
+  margin: 0 auto;
+  position: relative;
+  top: -81px;
+  width: 35%;
+}
+
+#logo {
+  z-index: 1;
+  object-fit: contain;
+  height: 50%;
+  width: 50%;
+  position: relative;
+  top: -30%;
+}
+
+.menu-option {
+  z-index: 1;
+  cursor: pointer;
+  color: #111;
+  display: block;
+}
+
+#songSelect {
+  position: absolute;
+  top: 40%;
+  left: 44%;
+}
+
+#tut {
+  position: absolute;
+  top: 50%;
+  left: 44%;
+}
+
+#cyo {
+  position: absolute;
+  top: 60%;
+  left: 44%;
+}
+
+#back {
+  position: absolute;
+  top: 14%;
+  left: 14%;
+}
+
+.track-art {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  object-fit: cover;
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+}
+
+#play-button {
+  visibility: hidden;
+  opacity: 0%;
 }

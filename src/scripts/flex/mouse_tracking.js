@@ -1,4 +1,4 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementsByClassName("canvas")[0];
 const c = canvas.getContext("2d");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -31,15 +31,16 @@ addEventListener('resize', () => {
   init();
 });
 
-
 export class MouseTracker {
-  constructor(x, y, radius, color){
+  constructor(x, y, radius){
+    this.colorOptions = ["#85BDB6", "#DB0700", "#FFC513", "#EFFBFF", "#579CC2"];
+
     this.origX = x;
     this.origY = y;
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.color = color;
+    this.color = this.colorOptions[Math.floor(Math.random() * 5)];
     this.radians = Math.random() * Math.PI * 2;
     this.velocity = this.randInt(1, 4) / this.randInt(100,150);
     this.distanceFromCenter = this.randInt(55, 177);
@@ -73,6 +74,7 @@ export class MouseTracker {
     }
     
     this.draw(lastPoint);
+
   }
 
   draw(lastPoint){
@@ -86,15 +88,13 @@ export class MouseTracker {
   }
 }
 
-const colors = ["#0068A1", "#DB0700", "#FFC513", "#EFFBFF", "#579CC2"];
-
 let liddleBuddies = [];
+
 export const init = () => {
   liddleBuddies = [];
   for(let i = 0; i < 200; i++){
     let radius = Math.floor(Math.random() * (7 - 3 + 1) + 3);
-    let color = colors[Math.floor(Math.random() * 5)];
-    liddleBuddies.push(new MouseTracker(1000, 500, radius, color));
+    liddleBuddies.push(new MouseTracker(1000, 500, radius));
   }
 };
 
@@ -105,9 +105,10 @@ export const animate = () => {
   c.fillRect(0, 0, canvas.width, canvas.height);
 
   liddleBuddies.forEach(bud => {
-   bud.update();
+    bud.update();
   });
 };
 
-init();
-animate();
+export const stopBeingFancy = () => {
+  cancelAnimationFrame();
+};
