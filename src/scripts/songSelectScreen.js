@@ -15,10 +15,23 @@ export const renderSongSelectScreen = () => {
 
   screen.appendChild(newCanvas);
 
+  let songs = [
+    "../../assets/Songs/Me!Me!Me! Pt. 1 (feat. Daoko) - TeddyLoid.mp3",
+    "../../assets/Songs/Me!Me!Me! Pt. 3 (feat. Daoko) - TeddyLoid.mp3",
+    "../../assets/Songs/ダイスキ ft. TeddyLoid - Daoko.mp3"
+  ];
+  let arts = [
+    "../../assets/images/trackart/mememe.png",
+    "../../assets/images/trackart/three.jpg",
+    "../../assets/images/trackart/sk.png",
+  ];
+
   back.addEventListener("click", () => {
     newCanvas.remove();
     back.remove();
-    trackArt.remove();
+    for (let i = 0; i < 3; i++) {
+      document.getElementById(arts[i]).remove();
+    }
     renderHomeScreen();
   });
 
@@ -26,16 +39,22 @@ export const renderSongSelectScreen = () => {
   newCanvas.width = innerWidth;
   newCanvas.height = innerHeight;
 
-  // c.fillRect(newCanvas.width / 2 - 75, newCanvas.height / 2 - 75,150, 150);
-
-  const trackArt = document.createElement("img");
-  trackArt.classList.add("track-art");
-  trackArt.src = "../../assets/images/trackart/mememe.png";
-  document.body.appendChild(trackArt);
-
-  trackArt.addEventListener("click", () => {
-    renderGameplayScreen();
-    trackArt.remove();
-    back.remove();
-  });
+  for(let i = 0; i < 3; i++){
+    let trackArt = document.createElement("img");
+    trackArt.classList.add("track-art");
+    trackArt.src = arts[i];
+    trackArt.id = arts[i];
+    trackArt.style.top = `${25+(15*i)}%`;
+    trackArt.style.left = `${25+(15*i)}%`;
+    document.body.appendChild(trackArt);
+    
+    trackArt.addEventListener("click", () => {
+      renderGameplayScreen(songs[i]);
+      for (let i = 0; i < 3; i++) {
+        document.getElementById(arts[i]).remove();
+      }
+      back.remove();
+    });
+    
+  }
 };

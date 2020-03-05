@@ -1,4 +1,7 @@
-  export const loadSound = (songFile) => {
+import { printBeat } from "../game_logic/beat";
+import { init } from "../flex/mouse_tracking";
+
+  export const loadSound = (songFile, vol) => {
   // for legacy browsers
   const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -22,6 +25,17 @@
   button.setAttribute("role", "switch");
   button.setAttribute("aria-checked", false);
   button.textContent = "Play/Pause";
+  document.body.appendChild(button);
+
+  //analyze audio data  
+  const analyzer = audioContext.createAnalyser();
+  analyzer.minDecibels = -90;
+  analyzer.maxDecibels = -10;
+
+  analyzer.fftSize = 256;
+  var bufferLength = analyzer.frequencyBinCount;
+
+  var dataArray = new Uint8Array(bufferLength);
 
   const gainNode = audioContext.createGain();
 
@@ -31,10 +45,8 @@
   volumeBar.setAttribute("min" , "0");
   volumeBar.setAttribute("max" , "10");
   volumeBar.setAttribute("value" , "2");
-  volumeBar.setAttribute("step" , "0.5");
+  volumeBar.setAttribute("step" , "0.2");
 
-  document.body.appendChild(button);
-  // document.body.appendChild(document.createElement("br"));
   document.body.appendChild(volumeBar);
 
   const volumeControl = document.querySelector('#volume');
@@ -43,9 +55,13 @@
     gainNode.gain.value = this.value;
   }, false);
 
-  track.connect(gainNode).connect(audioContext.destination);
+  const delay = audioContext.createDelay(3);
+
+  track.connect(gainNode).connect(analyzer).connect(audioContext.destination);
 
   const playButton = document.getElementById("play-button");
+
+  let paused = false;
 
   const  pausePlayCB = function () {
 
@@ -54,12 +70,15 @@
         audioContext.resume();
       }
 
+
       // play or pause track depending on state
       if (playButton.dataset.playing === 'false') {
         audioElement.play();
+        paused = false;
         playButton.dataset.playing = 'true';
       } else if (playButton.dataset.playing === 'true') {
         audioElement.pause();
+        paused = true;
         playButton.dataset.playing = 'false';
       }
 
@@ -74,5 +93,41 @@
 
   playButton.setAttribute("display","none");
 
+  let tyme = Date.now();
+
+  class BeatCreator {
+    constructor(){
+      
+    }
+
+    update(){
+      let bass = dataArray.reduce((a, b) => a + b, 0);
+      let waited = Date.now() - tyme;
+
+      if (bass > 10500 && waited > 750) {
+        printBeat();
+        tyme = Date.now();
+      }
+      this.draw();
+    }
+    
+    draw(){
+      
+    }
+  }
+
+  const animate = () => {
+    if (!paused) {
+      requestAnimationFrame(animate);
+      analyzer.getByteFrequencyData(dataArray);
+    } else {
+      cancelAnimationFrame(animate);
+    }
+
+    let creator = new BeatCreator();
+    creator.update();
+  };
+
   audioElement.play();
+  animate();
 }

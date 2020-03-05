@@ -1,6 +1,13 @@
+import { popBeats } from "../music/sound";
 
 export const printBeat = () => {
-  const gameplayCanvas = document.getElementById("beats-canvas");
+  const screen = document.getElementById("screen");
+  const beatsCanvas = document.createElement("canvas");
+  beatsCanvas.classList.add("canvas");
+  beatsCanvas.id = "beats-canvas";
+  screen.appendChild(beatsCanvas);
+
+  // constbeatCanvas = document.getElementById("beats-canvas");
   let pressedKeys = [];
   
   addEventListener("keydown", (e) => {
@@ -49,17 +56,29 @@ export const printBeat = () => {
     }
   });
 
-  const c = gameplayCanvas.getContext('2d');
-  gameplayCanvas.width = innerWidth;
-  gameplayCanvas.height = innerHeight;
+  let paused = false;
+  addEventListener("keypress", (e) => {
+    if (e.keyCode === 32) {
+      if(paused) {
+        paused = false;
+        animate();
+      } else {
+        paused = true;
+      }
+    }
+});
+
+  const c =beatsCanvas.getContext('2d');
+ beatsCanvas.width = innerWidth;
+ beatsCanvas.height = innerHeight;
 
   const goalPos = [
-    [gameplayCanvas.width / 6, gameplayCanvas.height / 2],
-    [(gameplayCanvas.width / 4) + 20, gameplayCanvas.height * (2 / 3)],
-    [(gameplayCanvas.width / 2) - 100, gameplayCanvas.height * (5 / 6)],
-    [(gameplayCanvas.width / 2) + 100, gameplayCanvas.height * (5 / 6)],
-    [(gameplayCanvas.width * (3 / 4)) - 20, gameplayCanvas.height * (2 / 3)],
-    [gameplayCanvas.width * (5 / 6), gameplayCanvas.height / 2],
+    [beatsCanvas.width / 6,beatsCanvas.height / 2],
+    [(beatsCanvas.width / 4) + 20,beatsCanvas.height * (2 / 3)],
+    [(beatsCanvas.width / 2) - 100,beatsCanvas.height * (5 / 6)],
+    [(beatsCanvas.width / 2) + 100,beatsCanvas.height * (5 / 6)],
+    [(beatsCanvas.width * (3 / 4)) - 20,beatsCanvas.height * (2 / 3)],
+    [beatsCanvas.width * (5 / 6),beatsCanvas.height / 2],
   ];
 
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
@@ -71,8 +90,8 @@ export const printBeat = () => {
       this.y = pos[1];
       this.destX = destination[0];
       this.destY = destination[1];
-      this.dx = (this.destX - this.x) / 75;
-      this.dy = (this.destY - this.y) / 75;
+      this.dx = (this.destX - this.x) / 60;
+      this.dy = (this.destY - this.y) / 60;
       this.radius = radius;
       this.key = key;
       this.timestamp = timestamp;
@@ -83,6 +102,7 @@ export const printBeat = () => {
 
     update(){
       this.radius = (this.radius < 50) ? this.radius + 1 : this.radius;
+      
       this.x += this.dx;
       this.y += this.dy;
 
@@ -96,17 +116,10 @@ export const printBeat = () => {
       if((perfectZone || goodZone) && pressed) this.hit = true; 
 
       this.draw();
-
     }
 
     draw(){
       if (!this.hit) {
-        c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        c.lineWidth = 10;
-        c.strokeStyle = "#85BDB6";
-        c.stroke();
-      } else if (this.hold) {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         c.lineWidth = 10;
@@ -119,17 +132,26 @@ export const printBeat = () => {
 
   const beats = [];
   const init = () => {
-    let origPos = [gameplayCanvas.width / 2, gameplayCanvas.height / 3];
+    let origPos = [beatsCanvas.width / 2,beatsCanvas.height / 3];
 
-    for (let i = 0; i < 6; i++) {
-      let dest = goalPos[i];
-      let key = goalKeys[i];
-      beats.push(new Beat(origPos, dest, 5, key, 0, false));
+    for (let i = 0; i < 2; i++) {
+      if (Math.random() < 0.77 && i === 1){
+        continue;
+      } else {
+        let spot = Math.floor(Math.random() * 6);
+        let dest = goalPos[spot];
+        let key = goalKeys[spot];
+        beats.push(new Beat(origPos, dest, 5, key, 0, false));
+      }
     }
   };
 
   const animate = () => {
-    requestAnimationFrame(animate);
+    if (!paused) {
+      requestAnimationFrame(animate);
+    } else {
+      cancelAnimationFrame(animate);
+    }
     c.clearRect(0,0,innerWidth,innerHeight);
 
     beats.forEach(bt => {
