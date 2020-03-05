@@ -1,5 +1,6 @@
 import * as flex from './flex/mouse_tracking';
 import { renderSongSelectScreen } from './songSelectScreen';
+import { renderTutorialScreen } from './tutorialScreen';
 
 export const renderHomeScreen = () => {
 
@@ -18,35 +19,37 @@ export const renderHomeScreen = () => {
   
   const songSelect = document.createElement("button");
   const tut = document.createElement("button");
-  const cyo = document.createElement("button");
+  // const cyo = document.createElement("button");
   
   songSelect.id = "songSelect";
   tut.id = "tut";
-  cyo.id = "cyo";
+  // // cyo.id = "cyo";
   
   songSelect.textContent = "jump in";
   tut.textContent = "tutorial";
-  cyo.textContent = "create your own";
+  // cyo.textContent = "create your own";
   
   document.body.appendChild(songSelect);
   document.body.appendChild(tut);
-  document.body.appendChild(cyo);
+  // document.body.appendChild(cyo);
   
   songSelect.addEventListener("click", () => {
     renderSongSelectScreen();
 
     songSelect.remove();
     tut.remove();
-    cyo.remove();
+    // cyo.remove();
     logo.remove();
   });
 
-  // tut.addEventListener("click", () => {
+  tut.addEventListener("click", () => {
+    renderTutorialScreen();
 
-
-  //   flex.init();
-  //   flex.animate();
-  // });
+    songSelect.remove();
+    tut.remove();
+    // cyo.remove();
+    logo.remove();
+  });
 
   // cyo.addEventListener("click", () => {
   //   const newCanvas = document.createElement("canvas");

@@ -176,3 +176,10 @@ button:focus {
 #beats-canvas {
   background-color: transparent;
 }
+
+#tutorial {
+  position: absolute;
+  top: 30%;
+  left: 42%;
+  width: 183px;
+}
