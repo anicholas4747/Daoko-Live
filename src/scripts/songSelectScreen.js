@@ -1,6 +1,5 @@
 import { renderHomeScreen } from './homeScreen';
 import { renderGameplayScreen } from './playScreen';
-import { renderGameplayScreen } from '../../Trackart/';
 
 export const renderSongSelectScreen = () => {
   const screen = document.getElementById("screen");
