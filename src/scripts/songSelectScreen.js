@@ -1,5 +1,6 @@
 import { renderHomeScreen } from './homeScreen';
 import { renderGameplayScreen } from './playScreen';
+import { renderGameplayScreen } from '../../Trackart/';
 
 export const renderSongSelectScreen = () => {
   const screen = document.getElementById("screen");
@@ -16,14 +17,14 @@ export const renderSongSelectScreen = () => {
   screen.appendChild(newCanvas);
 
   let songs = [
-    "../assets/Songs/Me!Me!Me! Pt. 1 (feat. Daoko) - TeddyLoid.mp3",
-    "../assets/Songs/ダイスキ ft. TeddyLoid - Daoko.mp3",
-    "../assets/Songs/Me!Me!Me! Pt. 3 (feat. Daoko) - TeddyLoid.mp3",
+    "../../Songs/Me!Me!Me! Pt. 1 (feat. Daoko) - TeddyLoid.mp3",
+    "../../Songs/ダイスキ ft. TeddyLoid - Daoko.mp3",
+    "../../Songs/Me!Me!Me! Pt. 3 (feat. Daoko) - TeddyLoid.mp3",
   ];
   let arts = [
-    "../assets/images/trackart/mememe.png",
-    "../assets/images/trackart/sk.png",
-    "../assets/images/trackart/three.png",
+    "../../Trackart/mememe.png",
+    "../../Trackart/sk.png",
+    "../../Trackart/three.png",
   ];
 
   back.addEventListener("click", () => {
