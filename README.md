@@ -11,13 +11,13 @@ In Daoko Live !!, users will be able to:
 
 ### WIREFRAMES
 Start Menu
-![Start Menu](/assets/images/wireframes/StartMenu.png?raw=true "Start Menu")
+![Start Menu](/src/assets/images/wireframes/StartMenu.png?raw=true "Start Menu")
 Song Select
-![Song Select](/assets/images/wireframes/SongSelect.png?raw=true "Song Select")
+![Song Select](/src/assets/images/wireframes/SongSelect.png?raw=true "Song Select")
 Gameplay Screen
-![Gameplay Screen](/assets/images/wireframes/GameplayScreen.png?raw=true "Gameplay Screen")
+![Gameplay Screen](/src/assets/images/wireframes/GameplayScreen.png?raw=true "Gameplay Screen")
 Note Types
-![Note Types](/assets/images/wireframes/NoteTypes.png?raw=true "Note Types")
+![Note Types](/src/assets/images/wireframes/NoteTypes.png?raw=true "Note Types")
 
 ### ARCHITECTURE AND TECHNOLOGY
 - CanvasHTML

@@ -11,7 +11,7 @@ export const renderHomeScreen = () => {
   if (oldCanvas) oldCanvas.remove();
   
   const logo = document.createElement("img");
-  logo.setAttribute("src","../../assets/images/daoko_logo.png");
+  logo.setAttribute("src","../assets/images/daoko_logo.png");
   logo.id = "logo";
   
   screen.appendChild(logo);
