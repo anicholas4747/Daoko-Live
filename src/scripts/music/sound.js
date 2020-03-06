@@ -1,7 +1,7 @@
 import { printBeat } from "../game_logic/beat";
 import { init } from "../flex/mouse_tracking";
 
-  export const loadSound = (songFile, vol) => {
+export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScore) => {
   // for legacy browsers
   const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -104,8 +104,8 @@ import { init } from "../flex/mouse_tracking";
       let bass = dataArray.reduce((a, b) => a + b, 0);
       let waited = Date.now() - tyme;
 
-      if (bass > 10500 && waited > 750) {
-        printBeat();
+      if (bass > 10500 && waited > 600) {
+        printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore);
         tyme = Date.now();
       }
       this.draw();
