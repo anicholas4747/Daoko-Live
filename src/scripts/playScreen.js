@@ -30,36 +30,35 @@ export const renderGameplayScreen = (playingTrack) => {
 
   // canvas elements
   let paused = false;
-  let totalScore = 0;
-  let pressedKeys = [];
+  let totalScore = {score: 0};
+  let pressedKeys = { "e": false, "f": false, "v": false, "n": false, "j": false, "i": false};
   const c = gameplayCanvas.getContext('2d');
 
   gameplayCanvas.width = innerWidth;
   gameplayCanvas.height = innerHeight;
 
   const goalPos = [
-    [gameplayCanvas.width / 6, gameplayCanvas.height / 2],
-    [(gameplayCanvas.width / 4) + 20, gameplayCanvas.height * (2 / 3)],
-    [(gameplayCanvas.width / 2) - 100, gameplayCanvas.height * (5 / 6)],
-    [(gameplayCanvas.width / 2) + 100, gameplayCanvas.height * (5 / 6)],
-    [(gameplayCanvas.width * (3 / 4)) - 20, gameplayCanvas.height * (2 / 3)],
-    [gameplayCanvas.width * (5 / 6), gameplayCanvas.height / 2],
+    [gameplayCanvas.width / 6, (gameplayCanvas.height / 2)],
+    [(gameplayCanvas.width / 4) + 20, (gameplayCanvas.height * (2 / 3))],
+    [(gameplayCanvas.width / 2) - 100, (gameplayCanvas.height * (5 / 6))],
+    [(gameplayCanvas.width / 2) + 100, (gameplayCanvas.height * (5 / 6))],
+    [(gameplayCanvas.width * (3 / 4)) - 20, (gameplayCanvas.height * (2 / 3))],
+    [gameplayCanvas.width * (5 / 6), (gameplayCanvas.height / 2)],
   ];
 
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
 
-  animate();
-  
-  loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore);
-  
-  function animate () {
-    console.log("totalScore"+totalScore)
-    const canvasElements = [];
-    const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys);
-    canvasElements.push(...playGoals);
-    canvasElements.push(addScore(totalScore, c));
+  const canvasElements = [];
+  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore));
+  canvasElements.push(addScore(totalScore));
+  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore);
+  canvasElements.push(...playGoals);
 
+  animate();
+    
+  function animate () {
     if (!paused) {
+      // console.log(totalScore.score);
       requestAnimationFrame(animate);
     } else {
       cancelAnimationFrame(animate);
@@ -74,22 +73,22 @@ export const renderGameplayScreen = (playingTrack) => {
   addEventListener("keydown", (e) => {
     switch (e.keyCode) {
       case 69:
-        pressedKeys.push("e");
+        pressedKeys.e = true;
         return;
       case 70:
-        pressedKeys.push("f");
+        pressedKeys.f = true;
         return;
       case 86:
-        pressedKeys.push("v");
+        pressedKeys.v = true;
         return;
       case 78:
-        pressedKeys.push("n");
+        pressedKeys.n = true;
         return;
       case 74:
-        pressedKeys.push("j");
+        pressedKeys.j = true;
         return;
       case 73:
-        pressedKeys.push("i");
+        pressedKeys.i = true;
         return;
     }
   });
@@ -97,22 +96,22 @@ export const renderGameplayScreen = (playingTrack) => {
   addEventListener("keyup", (e) => {
     switch (e.keyCode) {
       case 69:
-        pressedKeys = pressedKeys.filter((el) => el !== "e");
+        pressedKeys.e = false;
         return;
       case 70:
-        pressedKeys = pressedKeys.filter((el) => el !== "f");
+        pressedKeys.f = false;
         return;
       case 86:
-        pressedKeys = pressedKeys.filter((el) => el !== "v");
+        pressedKeys.v = false;
         return;
       case 78:
-        pressedKeys = pressedKeys.filter((el) => el !== "n");
+        pressedKeys.n = false;
         return;
       case 74:
-        pressedKeys = pressedKeys.filter((el) => el !== "j");
+        pressedKeys.j = false;
         return;
       case 73:
-        pressedKeys = pressedKeys.filter((el) => el !== "i");
+        pressedKeys.i = false;
         return;
     }
   });

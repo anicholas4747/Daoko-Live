@@ -105,6 +105,10 @@ button:focus {
   background-color: #EEE;
 }
 
+#score-canvas {
+  background-color: transparent;
+}
+
 .hidden {
   position: absolute;
   left: 1000%;

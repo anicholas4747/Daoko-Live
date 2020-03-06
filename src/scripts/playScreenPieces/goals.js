@@ -5,32 +5,27 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys) => {
       this.key = key;
       this.x = pos[0];
       this.y = pos[1];
-      this.first = true;
-      this.score = 0;
     }
     
     update(){
-      this.draw(pressedKeys.includes(this.key));
+      this.draw(pressedKeys[this.key]);
     }
     
     draw(held){
+      // actual circles
+
       c.beginPath();
       c.arc(this.x, this.y, 50, 0, Math.PI * 2);
-      c.lineWidth = 10;
+      c.lineWidth = 15;
       c.strokeStyle = "#85BDB6";
       c.stroke();
-      
+
       let gradient = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, 50);
       gradient.addColorStop(0, "#FFC513");
       gradient.addColorStop(1, "#EFFBFF");
-      const fillStyleClicked = (held || this.first) ? gradient : "rgba(255,255,255,0.02)";
-      this.first = false;
+      const fillStyleClicked = held ? gradient : "#EEE";
 
       c.fillStyle = fillStyleClicked;
-      c.fill();
-
-      c.beginPath();
-      c.fillRect(50, 100, innerWidth * (9 / 10), 40);
       c.fill();
     }
   }

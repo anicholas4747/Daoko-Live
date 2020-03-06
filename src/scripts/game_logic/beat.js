@@ -25,10 +25,10 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore)
 
       const perfectZone = Math.abs(this.x - this.destX) < 10 && Math.abs(this.y - this.destY) < 10;
       const goodZone = Math.abs(this.x - this.destX) < 25 && Math.abs(this.y - this.destY) < 25;
-      const pressed = pressedKeys.includes(this.key);
+      const pressed = pressedKeys[this.key];
       
-      if (perfectZone && pressed) totalScore += 1;
-      if (goodZone && pressed) totalScore += 0.5;
+      if (perfectZone && pressed) totalScore.score += 1;
+      if (goodZone && pressed) totalScore.score += 0.5;
 
       if((perfectZone || goodZone) && pressed) this.hit = true; 
 

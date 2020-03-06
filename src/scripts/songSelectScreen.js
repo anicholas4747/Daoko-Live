@@ -17,13 +17,13 @@ export const renderSongSelectScreen = () => {
 
   let songs = [
     "../../assets/Songs/Me!Me!Me! Pt. 1 (feat. Daoko) - TeddyLoid.mp3",
+    "../../assets/Songs/ダイスキ ft. TeddyLoid - Daoko.mp3",
     "../../assets/Songs/Me!Me!Me! Pt. 3 (feat. Daoko) - TeddyLoid.mp3",
-    "../../assets/Songs/ダイスキ ft. TeddyLoid - Daoko.mp3"
   ];
   let arts = [
     "../../assets/images/trackart/mememe.png",
-    "../../assets/images/trackart/three.jpg",
     "../../assets/images/trackart/sk.png",
+    "../../assets/images/trackart/three.png",
   ];
 
   back.addEventListener("click", () => {

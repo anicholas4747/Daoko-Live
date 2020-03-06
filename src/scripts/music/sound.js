@@ -112,22 +112,10 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     }
     
     draw(){
-      
+      analyzer.getByteFrequencyData(dataArray);
     }
   }
 
-  const animate = () => {
-    if (!paused) {
-      requestAnimationFrame(animate);
-      analyzer.getByteFrequencyData(dataArray);
-    } else {
-      cancelAnimationFrame(animate);
-    }
-
-    let creator = new BeatCreator();
-    creator.update();
-  };
-
   audioElement.play();
-  animate();
+  return new BeatCreator();
 }
