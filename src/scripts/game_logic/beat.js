@@ -125,6 +125,8 @@ export const printBeat = () => {
         c.lineWidth = 10;
         c.strokeStyle = "#85BDB6";
         c.stroke();
+      } else {
+        beatsCanvas.remove();
       }
     }
   }

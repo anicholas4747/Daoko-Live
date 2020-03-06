@@ -1,6 +1,7 @@
 import { loadSound } from "./music/sound";
 import { populateGoals } from './playScreenPieces/goals';
 import { printBeat } from "./game_logic/beat";
+import { renderHomeScreen } from './homeScreen';
 
 export const renderTutorialScreen = (playingTrack) => {
   const screen = document.getElementById("screen");
@@ -30,7 +31,8 @@ export const renderTutorialScreen = (playingTrack) => {
     gameplayCanvas.remove();
     back.remove();
     p.remove();
-    clearInterval(beatsTut);
+    clearInterval(beatsTut)
     renderHomeScreen();
+    
   });
 };

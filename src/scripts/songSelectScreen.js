@@ -44,8 +44,8 @@ export const renderSongSelectScreen = () => {
     trackArt.classList.add("track-art");
     trackArt.src = arts[i];
     trackArt.id = arts[i];
-    trackArt.style.top = `${25+(15*i)}%`;
-    trackArt.style.left = `${25+(15*i)}%`;
+    trackArt.style.top = `${22+(15*i)}%`;
+    trackArt.style.left = `${22+(15*i)}%`;
     document.body.appendChild(trackArt);
     
     trackArt.addEventListener("click", () => {

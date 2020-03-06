@@ -69,6 +69,7 @@ export const populateGoals = () => {
       this.x = pos[0];
       this.y = pos[1];
       this.first = true;
+      this.score = 0;
     }
     
     update(){
@@ -89,6 +90,14 @@ export const populateGoals = () => {
       this.first = false;
 
       c.fillStyle = fillStyleClicked;
+      c.fill();
+
+      c.beginPath();
+      c.fillRect(40,80,innerWidth * (7/8), 40);
+      c.fill();
+
+      c.beginPath();
+      c.fillRect(40,80, this.score * ((innerWidth * (7/8)) / 400), 40);
       c.fill();
     }
   }

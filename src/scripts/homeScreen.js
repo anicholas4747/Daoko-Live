@@ -3,7 +3,6 @@ import { renderSongSelectScreen } from './songSelectScreen';
 import { renderTutorialScreen } from './tutorialScreen';
 
 export const renderHomeScreen = () => {
-
   const screen = document.getElementById("screen");
 
   let oldCanvas = document.getElementById("gameplayCanvas");
