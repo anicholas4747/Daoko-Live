@@ -1,7 +1,7 @@
 import { printBeat } from "../game_logic/beat";
 import { init } from "../flex/mouse_tracking";
 
-export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScore) => {
+export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScore, totalMisses, paused) => {
   // for legacy browsers
   const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -55,13 +55,11 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     gainNode.gain.value = this.value;
   }, false);
 
-  const delay = audioContext.createDelay(3);
+  // const delay = audioContext.createDelay(3);
 
   track.connect(gainNode).connect(analyzer).connect(audioContext.destination);
 
   const playButton = document.getElementById("play-button");
-
-  let paused = false;
 
   const  pausePlayCB = function () {
 
@@ -74,11 +72,11 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
       // play or pause track depending on state
       if (playButton.dataset.playing === 'false') {
         audioElement.play();
-        paused = false;
+        paused.paused = false;
         playButton.dataset.playing = 'true';
       } else if (playButton.dataset.playing === 'true') {
         audioElement.pause();
-        paused = true;
+        paused.paused = true;
         playButton.dataset.playing = 'false';
       }
 
@@ -105,7 +103,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
       let waited = Date.now() - tyme;
 
       if (bass > 10500 && waited > 600) {
-        printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore);
+        printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses);
         tyme = Date.now();
       }
 

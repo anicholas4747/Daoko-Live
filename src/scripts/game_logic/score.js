@@ -32,6 +32,7 @@ export const addScore = (totalScore) => {
       c.fillRect(50, 100, totalScore.score * 1.15, 40);
       c.fillStyle = "#DDD";
       c.fill();
+      
     }
   }
 

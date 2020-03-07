@@ -19,12 +19,13 @@ export const renderTutorialScreen = (playingTrack) => {
 
   let p = document.createElement("p");
   p.id = "tutorial";
-  p.textContent = "1. Use EFVNJI to hit notes. 2. Use [spacebar] to pause.";
+  p.textContent = "1. Use EFVNJI to hit notes. 2. Use [spacebar] to quit.";
   document.body.appendChild(p);
   
   // canvas elements
-  let paused = false;
+  let paused = { paused: false };
   let totalScore = { score: 0 };
+  let totalMisses = { misses: 0 };
   let pressedKeys = { "e": false, "f": false, "v": false, "n": false, "j": false, "i": false };
   const c = gameplayCanvas.getContext('2d');
 
@@ -43,14 +44,13 @@ export const renderTutorialScreen = (playingTrack) => {
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
 
   const canvasElements = [];
-  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys);
+  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses, true);
   canvasElements.push(...playGoals);
 
   animate();
 
   function animate() {
-    if (!paused) {
-      // console.log(totalScore.score);
+    if (!paused.paused) {
       requestAnimationFrame(animate);
     } else {
       cancelAnimationFrame(animate);
@@ -61,7 +61,7 @@ export const renderTutorialScreen = (playingTrack) => {
       el.update();
     });
   };
-  let beatsTut = setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore), 1500);
+  let beatsTut = setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses), 1500);
 
   addEventListener("keydown", (e) => {
     switch (e.keyCode) {
@@ -111,12 +111,13 @@ export const renderTutorialScreen = (playingTrack) => {
 
   addEventListener("keypress", (e) => {
     if (e.keyCode === 32) {
-      if (paused) {
-        paused = false;
-        animate(canvasElements, paused, c);
-      } else {
-        paused = true;
-      }
+      location.reload();
+      // if (paused) {
+        // paused = false;
+        // animate(canvasElements, paused, c);
+      // } else {
+        // paused = true;
+      // }
     }
   });
   

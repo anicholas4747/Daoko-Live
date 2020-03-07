@@ -185,7 +185,9 @@ button:focus {
   position: absolute;
   top: 30%;
   left: 42%;
-  width: 183px;
+  width: 200px;
+  color: #85BDB6;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /*# sourceMappingURL=main.css.map*/

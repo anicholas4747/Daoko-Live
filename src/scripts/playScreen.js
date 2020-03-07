@@ -17,20 +17,22 @@ export const renderGameplayScreen = (playingTrack) => {
   back.id = "back";
   document.body.appendChild(back);
 
-  back.addEventListener("click", () => {
-    gameplayCanvas.remove();
-    back.remove();
+  back.addEventListener("click", goBack);
+
+  function goBack(){
+    if (gameplayCanvas)gameplayCanvas.remove();
+    if (back)back.remove();
     renderSongSelectScreen();
     const audioElement = document.querySelector('audio');
-    audioElement.remove();
+    if (audioElement)audioElement.remove();
     const volumeBar = document.getElementById("volume");
-    volumeBar.remove();
-  });
+    if (volumeBar)volumeBar.remove();
+  }
   
-
   // canvas elements
-  let paused = false;
+  let paused = {paused: false};
   let totalScore = {score: 0};
+  let totalMisses = {misses: 0};
   let pressedKeys = { "e": false, "f": false, "v": false, "n": false, "j": false, "i": false};
   const c = gameplayCanvas.getContext('2d');
 
@@ -49,17 +51,20 @@ export const renderGameplayScreen = (playingTrack) => {
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
 
   const canvasElements = [];
-  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore));
+  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore, totalMisses, paused));
   canvasElements.push(addScore(totalScore));
-  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore);
+  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses);
   canvasElements.push(...playGoals);
 
   animate();
     
   function animate () {
-    if (!paused) {
-      // console.log(totalScore.score);
+    if (!paused.paused) {
       requestAnimationFrame(animate);
+      
+      if(totalMisses.misses > 4){
+        location.reload();
+      }
     } else {
       cancelAnimationFrame(animate);
     }
@@ -118,12 +123,13 @@ export const renderGameplayScreen = (playingTrack) => {
 
   addEventListener("keypress", (e) => {
     if (e.keyCode === 32) {
-      if (paused) {
-        paused = false;
-        animate(canvasElements, paused, c);
-      } else {
-        paused = true;
-      }
+      location.reload();
+    //   if (paused.paused) {
+    //     paused.paused = false;
+    //     animate(canvasElements, paused, c);
+    //   } else {
+    //     paused.paused = true;
+    //   }
     }
   });
 };

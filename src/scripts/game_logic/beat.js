@@ -1,6 +1,6 @@
 import { popBeats } from "../music/sound";
 
-export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore) => {
+export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses) => {
   class Beat {
     constructor(pos, destination, radius, key, timestamp, hold){
       this.x = pos[0];
@@ -14,7 +14,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore)
       this.timestamp = timestamp;
       this.hold = hold;
       this.hit = false;
-      this.score = 0;
+      this.missed = false;
     }
 
     update(){
@@ -25,18 +25,27 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore)
 
       const perfectZone = Math.abs(this.x - this.destX) < 10 && Math.abs(this.y - this.destY) < 10;
       const goodZone = Math.abs(this.x - this.destX) < 25 && Math.abs(this.y - this.destY) < 25;
+      const missedZone = (this.y - this.destY) > 25;
       const pressed = pressedKeys[this.key];
       
       if (perfectZone && pressed) totalScore.score += 1;
       if (goodZone && pressed) totalScore.score += 0.5;
 
       if((perfectZone || goodZone) && pressed) this.hit = true; 
+      if (missedZone && !this.hit) this.missed = true; 
+      if (this.missed && Math.floor(this.y - this.destY) === 25) totalMisses.misses += 1;
 
       this.draw();
     }
 
     draw(){
-      if (!this.hit) {
+      if (this.missed) {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        c.lineWidth = 10;
+        c.strokeStyle = "#DB0700";
+        c.stroke();
+      } else if (!this.hit) {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         c.lineWidth = 10;
@@ -63,13 +72,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore)
   };
 
   function animate() {
-    if (!paused) {
-      requestAnimationFrame(animate);
-    } else {
-      cancelAnimationFrame(animate);
-    }
-    // c.clearRect(0, 0, innerWidth, innerHeight);
-
+    requestAnimationFrame(animate);
     beats.forEach(el => {
       el.update();
     });

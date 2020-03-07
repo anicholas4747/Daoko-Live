@@ -1,5 +1,5 @@
 
-export const populateGoals = (goalPos, goalKeys, c, pressedKeys) => {
+export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses, tutorial) => {
   class Goal {
     constructor(key, pos){
       this.key = key;
@@ -12,8 +12,55 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys) => {
     }
     
     draw(held){
-      // actual circles
 
+      if(!tutorial){
+        // Rank
+        let rank, font, fill;
+        if (totalScore.score * 100 === 0) {
+          rank = "-";
+          font = "30px Arial";
+          fill = "#85BDB6";
+        } else if (totalScore.score * 100 > 0 && totalScore.score * 100 < 19999) {
+          rank = "D";
+          font = "30px Arial";
+          fill = "#85BDB6";
+        } else if (totalScore.score * 100 > 20000 && totalScore.score * 100 < 34999) {
+          rank = "C";
+          font = "30px Arial";
+          fill = "#85BDB6";
+        } else if (totalScore.score * 100 > 35000 && totalScore.score * 100 < 49999) {
+          rank = "B";
+          font = "40px Arial";
+          fill = "#85BDB6";
+        } else if (totalScore.score * 100 > 50000 && totalScore.score * 100 < 84999) {
+          rank = "A";
+          font = "50px Arial";
+          fill = "#FFC513";
+        } else if (totalScore.score * 100 > 85000){
+          rank = "S";
+          font = "60px Arial";
+          fill = "#DB0700";
+        }
+  
+        c.fillStyle = "#85BDB6";
+        c.font = "30px Arial";
+        if (totalScore) c.fillText(`Rank: `, 75, 200);
+        c.fillStyle = fill;
+        c.font = font;
+        if (totalScore) c.fillText(`${rank}`, 175, 200);
+        
+        // Score
+        c.fillStyle = "#FFC513";
+        c.font = "30px Arial";
+        if (totalScore) c.fillText(`Score: ${totalScore.score * 100}`, (innerWidth / 2) - 75, 200);
+        
+        // Misses
+        c.fillStyle = "#DB0700";
+        c.font = "30px Arial";
+        if (totalScore) c.fillText(`Misses: ${totalMisses.misses}`, innerWidth - 250, 200);
+      }
+
+      // actual circles
       c.beginPath();
       c.arc(this.x, this.y, 50, 0, Math.PI * 2);
       c.lineWidth = 15;
