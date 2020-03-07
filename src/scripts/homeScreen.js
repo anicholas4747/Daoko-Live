@@ -1,6 +1,7 @@
 import * as flex from './flex/mouse_tracking';
 import { renderSongSelectScreen } from './songSelectScreen';
 import { renderTutorialScreen } from './tutorialScreen';
+import logoPic from "../../daoko_logo.png";
 
 export const renderHomeScreen = () => {
   const screen = document.getElementById("screen");
@@ -11,7 +12,7 @@ export const renderHomeScreen = () => {
   if (oldCanvas) oldCanvas.remove();
   
   const logo = document.createElement("img");
-  logo.setAttribute("src","../../daoko_logo.png");
+  logo.src = logoPic;
   logo.id = "logo";
   
   screen.appendChild(logo);

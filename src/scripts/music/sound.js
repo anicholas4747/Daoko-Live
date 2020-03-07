@@ -9,7 +9,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
 
   const screen = document.getElementById("screen");
   const song = document.createElement("audio");
-    song.setAttribute("src", songFile);
+    song.src = songFile;
 
   document.body.appendChild(song);
 
@@ -108,6 +108,11 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
         printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore);
         tyme = Date.now();
       }
+
+      // if (bass > 10500) {
+      //   printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore);
+      //   tyme = Date.now();
+      // }
       this.draw();
     }
     
