@@ -3,6 +3,9 @@
 ### OVERVIEW
 Rhythm game inspired by the mobile sensation, Love Love! School idol festival and the music of Japanese pop star, Daoko.
 
+### GAMEPLAY
+![GAMEPLAY](/src/assets/images/gameplay.gif?raw=true "GAMEPLAY")
+
 ### FUNCTIONALITY & MVP
 In Daoko Live !!, users will be able to:
 - Toggle and preview playable songs
