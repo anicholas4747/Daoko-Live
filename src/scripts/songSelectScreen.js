@@ -3,6 +3,9 @@ import { renderGameplayScreen } from './playScreen';
 import song1 from "../../Songs/mememp1.mp3";
 import song2 from "../../Songs/sk.mp3";
 import song3 from "../../Songs/mememp3.mp3";
+import art1 from "../../Songs/Trackart/mememe.png";
+import art2 from "../../Songs/Trackart/sk.png";
+import art3 from "../../Songs/Trackart/three.png";
 
 export const renderSongSelectScreen = () => {
   const screen = document.getElementById("screen");
@@ -19,7 +22,7 @@ export const renderSongSelectScreen = () => {
   screen.appendChild(newCanvas);
 
   let songs = [song1, song2, song3];
-  let arts = ["../../Trackart/mememe.png", "../../Trackart/sk.png", "../../Trackart/three.png"];
+  let arts = [art1, art2, art3];
 
   // let songs = [
   //   "../../Songs/mememp1.mp3",
