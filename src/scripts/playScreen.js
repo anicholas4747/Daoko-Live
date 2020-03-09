@@ -63,7 +63,7 @@ export const renderGameplayScreen = (playingTrack) => {
       requestAnimationFrame(animate);
       
       if(totalMisses.misses > 4){
-        location.reload();
+        goBack();
       }
     } else {
       cancelAnimationFrame(animate);
@@ -123,7 +123,7 @@ export const renderGameplayScreen = (playingTrack) => {
 
   addEventListener("keypress", (e) => {
     if (e.keyCode === 32) {
-      location.reload();
+      goBack();
     //   if (paused.paused) {
     //     paused.paused = false;
     //     animate(canvasElements, paused, c);

@@ -12,7 +12,7 @@ export const renderHomeScreen = () => {
   
   const logo = document.createElement("img");
   logo.id = "logo";
-  logo.src = "../../logo/daoko_logo.png";
+  logo.src = "./logo/daoko_logo.png";
   
   screen.appendChild(logo);
   

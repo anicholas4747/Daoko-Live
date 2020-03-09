@@ -67,6 +67,10 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, tot
       c.strokeStyle = "#85BDB6";
       c.stroke();
 
+      c.fillStyle = "#85BDB6";
+      c.font = "30px Arial";
+      c.fillText(this.key.toUpperCase(), this.x, this.y * 0.8);
+
       let gradient = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, 50);
       gradient.addColorStop(0, "#FFC513");
       gradient.addColorStop(1, "#EFFBFF");
