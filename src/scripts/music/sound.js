@@ -83,11 +83,11 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     };
 
   playButton.addEventListener('click', pausePlayCB);
-  addEventListener("keypress", (e) => {
-    if(e.keyCode === 32){
-      pausePlayCB();
-    }
-  });
+  // addEventListener("keypress", (e) => {
+  //   if(e.keyCode === 32){
+  //     pausePlayCB();
+  //   }
+  // });
 
   playButton.setAttribute("display","none");
 
@@ -102,7 +102,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
       let bass = dataArray.reduce((a, b) => a + b, 0);
       let waited = Date.now() - tyme;
 
-      if (bass > 10500 && waited > 600) {
+      if (bass > 10500 && waited > 500) {
         printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses);
         tyme = Date.now();
       }
@@ -119,6 +119,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     }
   }
 
+  audioElement.load();
   audioElement.play();
   return new BeatCreator();
 }

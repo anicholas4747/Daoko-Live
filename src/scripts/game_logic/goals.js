@@ -20,19 +20,19 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, tot
           rank = "-";
           font = "30px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 0 && totalScore.score * 100 < 19999) {
+        } else if (totalScore.score * 100 > 0 && totalScore.score * 100 <= 19999) {
           rank = "D";
           font = "30px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 20000 && totalScore.score * 100 < 34999) {
+        } else if (totalScore.score * 100 > 20000 && totalScore.score * 100 <= 34999) {
           rank = "C";
           font = "30px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 35000 && totalScore.score * 100 < 49999) {
+        } else if (totalScore.score * 100 > 35000 && totalScore.score * 100 <= 49999) {
           rank = "B";
           font = "40px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 50000 && totalScore.score * 100 < 84999) {
+        } else if (totalScore.score * 100 > 50000 && totalScore.score * 100 <= 84999) {
           rank = "A";
           font = "50px Arial";
           fill = "#FFC513";

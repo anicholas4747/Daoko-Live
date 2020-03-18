@@ -1,8 +1,8 @@
 import { loadSound } from "../music/sound";
 import { populateGoals } from '../game_logic/goals';
-import { printBeat } from "../game_logic/beat";
 import { renderSongSelectScreen } from "./songSelectScreen";
 import { addScore } from "../game_logic/score";
+import { renderGameOverScreen } from "./gameoverScreen";
 
 export const renderGameplayScreen = (playingTrack) => {
   const screen = document.getElementById("screen");
@@ -22,11 +22,13 @@ export const renderGameplayScreen = (playingTrack) => {
   function goBack(){
     if (gameplayCanvas)gameplayCanvas.remove();
     if (back)back.remove();
-    renderSongSelectScreen();
     const audioElement = document.querySelector('audio');
     if (audioElement)audioElement.remove();
     const volumeBar = document.getElementById("volume");
     if (volumeBar)volumeBar.remove();
+    const playButton = document.getElementById("play-button");
+    if (playButton)playButton.remove();
+    renderSongSelectScreen();
   }
   
   // canvas elements
@@ -60,13 +62,13 @@ export const renderGameplayScreen = (playingTrack) => {
     
   function animate () {
     if (!paused.paused) {
-      requestAnimationFrame(animate);
-      
-      if(totalMisses.misses > 4){
+      if (totalMisses.misses > 4) {
         goBack();
+        renderGameOverScreen();
+        cancelAnimationFrame(animate);
+      } else {
+        requestAnimationFrame(animate);
       }
-    } else {
-      cancelAnimationFrame(animate);
     }
     c.clearRect(0, 0, innerWidth, innerHeight);
     
@@ -124,12 +126,7 @@ export const renderGameplayScreen = (playingTrack) => {
   addEventListener("keypress", (e) => {
     if (e.keyCode === 32) {
       goBack();
-    //   if (paused.paused) {
-    //     paused.paused = false;
-    //     animate(canvasElements, paused, c);
-    //   } else {
-    //     paused.paused = true;
-    //   }
+      renderGameOverScreen();
     }
   });
 };

@@ -15,6 +15,8 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
       this.hold = hold;
       this.hit = false;
       this.missed = false;
+      this.timer = 0;
+      this.result = "";
     }
 
     update(){
@@ -23,7 +25,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
       this.x += this.dx;
       this.y += this.dy;
 
-      const perfectZone = Math.abs(this.x - this.destX) < 10 && Math.abs(this.y - this.destY) < 10;
+      const perfectZone = Math.abs(this.x - this.destX) < 15 && Math.abs(this.y - this.destY) < 15;
       const goodZone = Math.abs(this.x - this.destX) < 25 && Math.abs(this.y - this.destY) < 25;
       const missedZone = (this.y - this.destY) > 25;
       const pressed = pressedKeys[this.key];
@@ -34,6 +36,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
       if((perfectZone || goodZone) && pressed) this.hit = true; 
       if (missedZone && !this.hit) this.missed = true; 
       if (this.missed && Math.floor(this.y - this.destY) === 25) totalMisses.misses += 1;
+      if (this.result === "") this.result = (perfectZone) ? "PERFECT" : "PERFECT";
 
       this.draw();
     }
@@ -45,12 +48,24 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
         c.lineWidth = 10;
         c.strokeStyle = "#DB0700";
         c.stroke();
+
+        if (this.timer < 20){
+          c.fillStyle = "#DB0700";
+          c.font = "75px Arial";
+          c.fillText("MISSED", innerWidth / 2.5, innerHeight / 2);
+          this.timer++;
+        }
       } else if (!this.hit) {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         c.lineWidth = 10;
         c.strokeStyle = "#85BDB6";
         c.stroke();
+      } else if (this.timer < 20){
+        c.fillStyle = (this.result === "PERFECT") ? "#FFC513" : "#AAAAAA";
+        c.font = "75px Arial";
+        c.fillText(this.result, innerWidth / 2.8, innerHeight / 2);
+        this.timer++;
       }
     }
   }
@@ -73,6 +88,9 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
 
   function animate() {
     requestAnimationFrame(animate);
+    if (totalMisses.misses > 4) {
+      cancelAnimationFrame(animate);
+    }
     beats.forEach(el => {
       el.update();
     });
