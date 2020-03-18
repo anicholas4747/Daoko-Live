@@ -189,3 +189,39 @@ button:focus {
   color: #85BDB6;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+ul#links {
+  position: absolute;
+  right: 14%;
+  bottom: 16%;
+  width: 250px;
+  height: 150px;
+}
+
+ul#links li{
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  position: relative;
+}
+
+ul#links li a img{
+  cursor: pointer;
+  object-fit: contain;
+}
+
+#linked {
+  left: 22%;
+  bottom: -41%;
+  z-index: 47;
+}
+
+#angel {
+  top: -35%;
+  left: 41%;
+}
+
+#git {
+  right: -61%;
+  bottom: -31px;
+}
