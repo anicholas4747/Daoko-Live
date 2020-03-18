@@ -48,6 +48,8 @@ button {
   border-radius: 4px;
   font-size: 30px;
   text-transform: uppercase;
+  width: 155px;
+  text-align: center;
 }
 
 button:focus {
