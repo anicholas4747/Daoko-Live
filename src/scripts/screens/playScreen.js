@@ -28,6 +28,10 @@ export const renderGameplayScreen = (playingTrack) => {
     if (volumeBar)volumeBar.remove();
     const playButton = document.getElementById("play-button");
     if (playButton)playButton.remove();
+    let scoreCanvas = document.getElementById("score-canvas");
+    if (scoreCanvas) scoreCanvas.remove();
+    let selectCanvas = document.getElementById("songSelectCanvas");
+    if (selectCanvas) selectCanvas.remove();
     renderSongSelectScreen();
   }
   
