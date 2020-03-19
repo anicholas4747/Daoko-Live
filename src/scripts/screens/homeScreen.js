@@ -1,5 +1,6 @@
 import { renderSongSelectScreen } from './songSelectScreen';
 import { renderTutorialScreen } from './tutorialScreen';
+import tutSong from '../../media/Songs/2bpm_song.mp3';
 
 export const renderHomeScreen = () => {
   const screen = document.getElementById("screen");
@@ -41,7 +42,7 @@ export const renderHomeScreen = () => {
   });
 
   tut.addEventListener("click", () => {
-    renderTutorialScreen();
+    renderTutorialScreen(tutSong);
 
     songSelect.remove();
     tut.remove();

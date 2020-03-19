@@ -44,6 +44,7 @@ export const renderTutorialScreen = (playingTrack) => {
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
 
   const canvasElements = [];
+  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore, totalMisses, paused));
   const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses, true);
   canvasElements.push(...playGoals);
 
@@ -61,7 +62,26 @@ export const renderTutorialScreen = (playingTrack) => {
       el.update();
     });
   };
-  let beatsTut = setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses), 1500);
+  let beatsTut = () => setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses), 2000);
+  setTimeout(beatsTut,1250);
+
+  function goBack() {
+    if (gameplayCanvas) gameplayCanvas.remove();
+    if (back) back.remove();
+    const audioElement = document.querySelector('audio');
+    if (audioElement) audioElement.remove();
+    const volumeBar = document.getElementById("volume");
+    if (volumeBar) volumeBar.remove();
+    const playButton = document.getElementById("play-button");
+    if (playButton) playButton.remove();
+    let scoreCanvas = document.getElementById("score-canvas");
+    if (scoreCanvas) scoreCanvas.remove();
+    let selectCanvas = document.getElementById("songSelectCanvas");
+    if (selectCanvas) selectCanvas.remove();
+    let instructionsP = document.getElementById("tutorial");
+    if (instructionsP) instructionsP.remove();
+    renderHomeScreen();
+  }
 
   addEventListener("keydown", (e) => {
     switch (e.keyCode) {
@@ -111,22 +131,10 @@ export const renderTutorialScreen = (playingTrack) => {
 
   addEventListener("keypress", (e) => {
     if (e.keyCode === 32) {
-      location.reload();
-      // if (paused) {
-        // paused = false;
-        // animate(canvasElements, paused, c);
-      // } else {
-        // paused = true;
-      // }
+      goBack();
+      // location.reload();
     }
   });
   
-  back.addEventListener("click", () => {
-    gameplayCanvas.remove();
-    back.remove();
-    p.remove();
-    clearInterval(beatsTut)
-    renderHomeScreen();
-    
-  });
+  back.addEventListener("click", goBack);
 };
