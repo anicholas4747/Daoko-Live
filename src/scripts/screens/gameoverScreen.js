@@ -81,5 +81,15 @@ export const renderGameOverScreen = (totalNotes, totalScore) => {
     c.fillText(`Misses: ${totalNotes.misses}`, innerWidth / 1.85, innerHeight / 1.4);
   }
 
+  if(totalNotes.misses === 0){
+    c.font = "50px Arial";
+    let gradient = c.createLinearGradient(0, 0, 1100, 0);
+    gradient.addColorStop(0, "#FFC513");
+    gradient.addColorStop(0.75, "#85BDB6");
+    gradient.addColorStop(1, "#DB0700");
+    c.fillStyle = gradient;
+    c.fillText(`FULL COMBO`, innerWidth / 1.5, 150);
+  }
+
 
 };
