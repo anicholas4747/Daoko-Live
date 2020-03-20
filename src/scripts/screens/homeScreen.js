@@ -9,6 +9,18 @@ export const renderHomeScreen = () => {
   if (oldCanvas) oldCanvas.remove();
   oldCanvas = document.getElementById("songSelectCanvas");
   if (oldCanvas) oldCanvas.remove();
+  let back = document.getElementById("back");
+  if (back) back.remove();
+  const audioElement = document.querySelector('audio');
+  if (audioElement) audioElement.remove();
+  const volumeBar = document.getElementById("volume");
+  if (volumeBar) volumeBar.remove();
+  const playButton = document.getElementById("play-button");
+  if (playButton) playButton.remove();
+  let scoreCanvas = document.getElementById("score-canvas");
+  if (scoreCanvas) scoreCanvas.remove();
+  let selectCanvas = document.getElementById("songSelectCanvas");
+  if (selectCanvas) selectCanvas.remove();
   
   const logo = document.createElement("img");
   logo.id = "logo";

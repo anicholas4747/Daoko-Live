@@ -1,5 +1,5 @@
 
-export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses, tutorial) => {
+export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, totalNotes, tutorial) => {
   class Goal {
     constructor(key, pos){
       this.key = key;
@@ -20,23 +20,23 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, tot
           rank = "-";
           font = "30px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 0 && totalScore.score * 100 <= 19999) {
+        } else if (totalScore.score * 100 > 0 && totalScore.score * 100 <= 20000) {
           rank = "D";
           font = "30px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 20000 && totalScore.score * 100 <= 34999) {
+        } else if (totalScore.score * 100 > 20000 && totalScore.score * 100 <= 35000) {
           rank = "C";
           font = "30px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 35000 && totalScore.score * 100 <= 49999) {
+        } else if (totalScore.score * 100 > 35000 && totalScore.score * 100 <= 50000) {
           rank = "B";
           font = "40px Arial";
           fill = "#85BDB6";
-        } else if (totalScore.score * 100 > 50000 && totalScore.score * 100 <= 84999) {
+        } else if (totalScore.score * 100 > 50000 && totalScore.score * 100 <= 70000) {
           rank = "A";
           font = "50px Arial";
           fill = "#FFC513";
-        } else if (totalScore.score * 100 > 85000){
+        } else if (totalScore.score * 100 > 70000){
           rank = "S";
           font = "60px Arial";
           fill = "#DB0700";
@@ -57,7 +57,7 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, tot
         // Misses
         c.fillStyle = "#DB0700";
         c.font = "30px Arial";
-        if (totalScore) c.fillText(`Misses: ${totalMisses.misses}`, innerWidth - 250, 200);
+        if (totalScore) c.fillText(`Misses: ${totalNotes.misses}`, innerWidth - 250, 200);
       }
 
       // actual circles
@@ -78,6 +78,8 @@ export const populateGoals = (goalPos, goalKeys, c, pressedKeys, totalScore, tot
 
       c.fillStyle = fillStyleClicked;
       c.fill();
+
+      
     }
   }
 

@@ -37,8 +37,16 @@ export const renderSongSelectScreen = () => {
     if (scoreCanvas) scoreCanvas.remove();
     newCanvas.remove();
     back.remove();
-    for (let i = 0; i < 3; i++) {
-      document.getElementById(arts[i]).remove();
+    let keepRemoving = true;
+    while (keepRemoving) {
+      for (let i = 0; i < 3; i++) {
+        let trackArt = document.getElementById(arts[i]);
+        let newBack = document.getElementById("back");
+        if (trackArt) trackArt.remove();
+        if (newBack) newBack.remove();
+        if (!trackArt && !newBack) keepRemoving = false;
+
+      }
     }
     renderHomeScreen();
   });

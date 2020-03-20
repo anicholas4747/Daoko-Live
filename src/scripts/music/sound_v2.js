@@ -1,6 +1,6 @@
 import { printBeat } from "../game_logic/beat";
 
-export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScore, totalMisses, paused) => {
+export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScore, totalNotes, paused) => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   const audioContext = new AudioContext();
 
@@ -11,7 +11,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     let analyzerInfo;
 
     const gainNode = audioContext.createGain();
-    if(delay > 0){
+    if(delay > 3){
       appendVolumeControl(gainNode);
       source.connect(gainNode).connect(audioContext.destination);
     } else {
@@ -22,7 +22,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     }
 
     source.start(delay);
-    if (delay === 0) return analyzerInfo;
+    if (delay === 3) return analyzerInfo;
   }
 
   function appendVolumeControl(gainNode){
@@ -71,14 +71,14 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
 
       // if (bass > 1000 && waited > 500) {
       if (bass / ave > 1.25 && waited > 500) {
-        printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses);
+        printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalNotes);
         tyme = Date.now();
       }
-      if(totalMisses.misses > 4){
+      if(totalNotes.misses > 4){
         if (audioContext.state !== "closed") audioContext.close();
       }
       // if (bass > 10500 && waited > 500) {
-      //   printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses);
+      //   printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalNotes);
       //   tyme = Date.now();
       // }
       this.wave.push(bass);
@@ -86,7 +86,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     }
 
     draw() {
-      this.analyzer.getByteFrequencyData(this.dataArray);
+      this.analyzer.getByteFrequencyData(this.dataArray);  
     }
   }
 
@@ -99,9 +99,9 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     if (e.keyCode === 32) {
       if (audioContext.state !== "closed") audioContext.close();
     }
-  })
+  });
 
-  let analyzerInfo = playSound(songFile, 0);
-  playSound(songFile, 1.6);
+  let analyzerInfo = playSound(songFile, 3);
+  playSound(songFile, 4.6);
   return new BeatCreator(analyzerInfo);
 };

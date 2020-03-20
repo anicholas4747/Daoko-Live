@@ -3,6 +3,7 @@ import { populateGoals } from '../game_logic/goals';
 import { renderSongSelectScreen } from "./songSelectScreen";
 import { addScore } from "../game_logic/score";
 import { renderGameOverScreen } from "./gameoverScreen";
+import { renderHomeScreen } from "./homeScreen";
 
 export const renderGameplayScreen = (playingTrack) => {
   const screen = document.getElementById("screen");
@@ -32,13 +33,34 @@ export const renderGameplayScreen = (playingTrack) => {
     if (scoreCanvas) scoreCanvas.remove();
     let selectCanvas = document.getElementById("songSelectCanvas");
     if (selectCanvas) selectCanvas.remove();
+
+    let arts = [
+      "./src/media/Trackart/mememe.png",
+      "./src/media/Trackart/sk.png",
+      "./src/media/Trackart/three.png",
+    ];
+    let keepRemoving = true;
+    while (keepRemoving) {
+      for (let i = 0; i < 3; i++) {
+        let trackArt = document.getElementById(arts[i]);
+        let newBack = document.getElementById("back");
+        if (trackArt) trackArt.remove();
+        if (newBack) newBack.remove();
+        if (!trackArt && !newBack) keepRemoving = false;
+
+      }
+    }
+
     renderSongSelectScreen();
   }
+
+  let finishTime = parseInt(Date.now() + (playingTrack.duration * 1000) + 5000 + 3000);
+  let songOver = {done: Boolean((Date.now() - finishTime) > 250)};
   
   // canvas elements
   let paused = {paused: false};
   let totalScore = {score: 0};
-  let totalMisses = {misses: 0};
+  let totalNotes = {hits: 0, misses: 0};
   let pressedKeys = { "e": false, "f": false, "v": false, "n": false, "j": false, "i": false};
   const c = gameplayCanvas.getContext('2d');
 
@@ -57,21 +79,22 @@ export const renderGameplayScreen = (playingTrack) => {
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
 
   const canvasElements = [];
-  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore, totalMisses, paused));
-  canvasElements.push(addScore(totalScore));
-  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses);
+  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore, totalNotes, paused));
+  canvasElements.push(addScore(totalScore, finishTime));
+  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalNotes);
   canvasElements.push(...playGoals);
 
   animate();
     
   function animate () {
     if (!paused.paused) {
-      if (totalMisses.misses > 4) {
+      if (totalNotes.misses > 4 || songOver.done) {
         goBack();
-        renderGameOverScreen();
+        renderGameOverScreen(totalNotes, totalScore);
         cancelAnimationFrame(animate);
       } else {
         requestAnimationFrame(animate);
+        songOver.done = Boolean((Date.now() - finishTime) > 250);
       }
     }
     c.clearRect(0, 0, innerWidth, innerHeight);
@@ -80,6 +103,14 @@ export const renderGameplayScreen = (playingTrack) => {
       el.update();
     });
   };
+
+  function showSelectCB(e){
+    if (e.keyCode === 32) {
+      goBack();
+      renderSongSelectScreen();
+      removeEventListener("keypress", showSelectCB);
+    }
+  }
 
   addEventListener("keydown", (e) => {
     switch (e.keyCode) {
@@ -127,10 +158,5 @@ export const renderGameplayScreen = (playingTrack) => {
     }
   });
 
-  addEventListener("keypress", (e) => {
-    if (e.keyCode === 32) {
-      goBack();
-      renderGameOverScreen();
-    }
-  });
+  addEventListener("keypress", showSelectCB);
 };

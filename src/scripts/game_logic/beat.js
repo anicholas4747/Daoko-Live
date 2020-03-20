@@ -1,6 +1,6 @@
 import { popBeats } from "../music/sound";
 
-export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses) => {
+export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalNotes) => {
   class Beat {
     constructor(pos, destination, radius, key, timestamp, hold){
       this.x = pos[0];
@@ -35,7 +35,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
 
       if((perfectZone || goodZone) && pressed) this.hit = true; 
       if (missedZone && !this.hit) this.missed = true; 
-      if (this.missed && Math.floor(this.y - this.destY) === 25) totalMisses.misses += 1;
+      if (this.missed && Math.floor(this.y - this.destY) === 25) totalNotes.misses += 1;
       if (this.result === "") this.result = (perfectZone) ? "PERFECT" : "PERFECT";
 
       this.draw();
@@ -65,17 +65,22 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
         c.fillStyle = (this.result === "PERFECT") ? "#FFC513" : "#AAAAAA";
         c.font = "75px Arial";
         c.fillText(this.result, innerWidth / 2.8, innerHeight / 2);
+        if(this.timer === 0) totalNotes.hits++;
         this.timer++;
       }
     }
   }
+
+  let randFactor = 0.67;
   
   const beats = [];
   const init = () => {
     let origPos = [innerWidth / 2, innerHeight / 3];
 
     for (let i = 0; i < 2; i++) {
-      if (Math.random() < 0.67 && i === 1){
+      if (Math.random() < randFactor && i === 1){
+        if (randFactor < 0.05) randFactor = 0.67;
+        randFactor -= 0.1;
         continue;
       } else {
         let spot = Math.floor(Math.random() * 6);
@@ -88,7 +93,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
 
   function animate() {
     requestAnimationFrame(animate);
-    if (totalMisses.misses > 4) {
+    if (totalNotes.misses > 4) {
       cancelAnimationFrame(animate);
     }
     beats.forEach(el => {

@@ -25,7 +25,7 @@ export const renderTutorialScreen = (playingTrack) => {
   // canvas elements
   let paused = { paused: false };
   let totalScore = { score: 0 };
-  let totalMisses = { misses: 0 };
+  let totalNotes = { misses: 0 };
   let pressedKeys = { "e": false, "f": false, "v": false, "n": false, "j": false, "i": false };
   const c = gameplayCanvas.getContext('2d');
 
@@ -44,8 +44,8 @@ export const renderTutorialScreen = (playingTrack) => {
   const goalKeys = ["e", "f", "v", "n", "j", "i"];
 
   const canvasElements = [];
-  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore, totalMisses, paused));
-  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalMisses, true);
+  canvasElements.push(loadSound(playingTrack, goalPos, goalKeys, pressedKeys, c, totalScore, totalNotes, paused));
+  const playGoals = populateGoals(goalPos, goalKeys, c, pressedKeys, totalScore, totalNotes, true);
   canvasElements.push(...playGoals);
 
   animate();
@@ -62,7 +62,7 @@ export const renderTutorialScreen = (playingTrack) => {
       el.update();
     });
   };
-  let beatsTut = () => setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalMisses), 2000);
+  let beatsTut = () => setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalNotes), 2000);
   setTimeout(beatsTut,1250);
 
   function goBack() {
@@ -80,7 +80,6 @@ export const renderTutorialScreen = (playingTrack) => {
     if (selectCanvas) selectCanvas.remove();
     let instructionsP = document.getElementById("tutorial");
     if (instructionsP) instructionsP.remove();
-    renderHomeScreen();
   }
 
   addEventListener("keydown", (e) => {
@@ -132,9 +131,13 @@ export const renderTutorialScreen = (playingTrack) => {
   addEventListener("keypress", (e) => {
     if (e.keyCode === 32) {
       goBack();
+      renderHomeScreen();
       // location.reload();
     }
   });
   
-  back.addEventListener("click", goBack);
+  back.addEventListener("click", () => {
+    goBack();
+    renderHomeScreen();
+  });
 };
