@@ -1,8 +1,8 @@
 import { renderHomeScreen } from './homeScreen';
 import { renderGameplayScreen } from './playScreen';
-import song1 from "../../media/Songs/mememep1.mp3";
-import song2 from "../../media/Songs/sk.mp3";
-import song3 from "../../media/Songs/mememep3.mp3";
+// import song1 from "../../media/Songs/mememep1.mp3";
+// import song2 from "../../media/Songs/sk.mp3";
+// import song3 from "../../media/Songs/mememep3.mp3";
 
 export const renderSongSelectScreen = () => {
   const screen = document.getElementById("screen");
@@ -18,14 +18,14 @@ export const renderSongSelectScreen = () => {
 
   screen.appendChild(newCanvas);
 
-  let songs = [song1, song2, song3];
+  // let songs = [song1, song2, song3];
   // let arts = [art1, art2, art3];
 
-  // let songs = [
-  //   "../../Songs/mememp1.mp3",
-  //   "../../Songs/sk.mp3",
-  //   "../../Songs/mememp3.mp3",
-  // ];
+  let songs = [
+    "../../src/media/Songs/mememep1.mp3",
+    "../../src/media/Songs/sk.mp3",
+    "../../src/media/Songs/mememep3.mp3",
+  ];
   let arts = [
     "./src/media/Trackart/mememe.png",
     "./src/media/Trackart/sk.png",
@@ -57,11 +57,33 @@ export const renderSongSelectScreen = () => {
     document.body.appendChild(trackArt);
     
     trackArt.addEventListener("click", () => {
-      renderGameplayScreen(songs[i]);
-      for (let i = 0; i < 3; i++) {
-        document.getElementById(arts[i]).remove();
+      function loadSound(url) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.responseType = 'arraybuffer';
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        // Decode asynchronously
+        request.onload = function () {
+          audioContext.decodeAudioData(request.response, (buffer) => renderGameplayScreen(buffer));
+        }
+        request.send();
       }
-      back.remove();
+
+      loadSound(songs[i]);
+
+      let keepRemoving = true;
+      while(keepRemoving){
+        for (let i = 0; i < 3; i++) {
+          let trackArt = document.getElementById(arts[i]);
+          let newBack = document.getElementById("back");
+          if(trackArt) trackArt.remove();
+          if(newBack) newBack.remove();
+          if(!trackArt && !newBack) keepRemoving = false;
+          
+        }
+      }
     });
     
   }

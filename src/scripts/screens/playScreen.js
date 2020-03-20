@@ -1,4 +1,4 @@
-import { loadSound } from "../music/sound";
+import { loadSound } from "../music/sound_v2";
 import { populateGoals } from '../game_logic/goals';
 import { renderSongSelectScreen } from "./songSelectScreen";
 import { addScore } from "../game_logic/score";
