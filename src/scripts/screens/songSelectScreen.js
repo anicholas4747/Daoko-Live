@@ -1,8 +1,8 @@
 import { renderHomeScreen } from './homeScreen';
 import { renderGameplayScreen } from './playScreen';
-// import song1 from "../../media/Songs/mememep1.mp3";
-// import song2 from "../../media/Songs/sk.mp3";
-// import song3 from "../../media/Songs/mememep3.mp3";
+import song1 from "../../media/Songs/mememep1.mp3";
+import song2 from "../../media/Songs/sk.mp3";
+import song3 from "../../media/Songs/mememep3.mp3";
 
 export const renderSongSelectScreen = () => {
   const screen = document.getElementById("screen");
