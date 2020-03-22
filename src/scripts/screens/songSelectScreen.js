@@ -21,10 +21,16 @@ export const renderSongSelectScreen = () => {
   // let songs = [song1, song2, song3];
   // let arts = [art1, art2, art3];
 
+  // let songs = [
+  //   "../../src/media/Songs/mememep1.mp3",
+  //   "../../src/media/Songs/sk.mp3",
+  //   "../../src/media/Songs/mememep3.mp3",
+  // ];
+
   let songs = [
-    "../../src/media/Songs/mememep1.mp3",
-    "../../src/media/Songs/sk.mp3",
-    "../../src/media/Songs/mememep3.mp3",
+    "./src/media/Songs/mememep1.mp3",
+    "./src/media/Songs/sk.mp3",
+    "./src/media/Songs/mememep3.mp3",
   ];
   let arts = [
     "./src/media/Trackart/mememe.png",
@@ -69,7 +75,7 @@ export const renderSongSelectScreen = () => {
         var request = new XMLHttpRequest();
         request.open('GET', url, true);
         request.responseType = 'arraybuffer';
-
+        
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioContext = new AudioContext();
         // Decode asynchronously
