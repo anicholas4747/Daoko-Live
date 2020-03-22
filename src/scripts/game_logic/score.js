@@ -48,7 +48,7 @@ export const addScore = (totalScore, finishTime) => {
         c.fillText("START", innerWidth / 2.5, 125);
       } else if (Date.now() - this.tyme < 4500) {
         c.fillStyle = "#EEE";
-        c.fillRect(innerWidth / 2 - 125, 75, 300, 75);
+        c.fillRect(innerWidth / 2 - 200, 75, 400, 75);
         c.fill();
       } else {
         // game over
