@@ -102,6 +102,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
   });
 
   let analyzerInfo = playSound(songFile, 3);
-  playSound(songFile, 4.6);
+  playSound(songFile, 4.48);
+  // playSound(songFile, 4.6);
   return new BeatCreator(analyzerInfo);
 };
