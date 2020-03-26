@@ -65,6 +65,20 @@ export const renderTutorialScreen = (playingTrack) => {
   let beatsTut = () => setInterval(() => printBeat(goalPos, goalKeys, paused, pressedKeys, c, totalScore, totalNotes), 2000);
   setTimeout(beatsTut,1250);
 
+
+  const spaceCB = (e) => {
+    if (e.keyCode === 32) {
+      goBack();
+      renderHomeScreen();
+      // location.reload();
+    }
+  };
+
+  const backCB = () => {
+    goBack();
+    renderHomeScreen();
+  };
+
   function goBack() {
     if (gameplayCanvas) gameplayCanvas.remove();
     if (back) back.remove();
@@ -80,6 +94,8 @@ export const renderTutorialScreen = (playingTrack) => {
     if (selectCanvas) selectCanvas.remove();
     let instructionsP = document.getElementById("tutorial");
     if (instructionsP) instructionsP.remove();
+    removeEventListener("keypress", spaceCB);
+    back.removeEventListener("click", backCB);
   }
 
   addEventListener("keydown", (e) => {
@@ -128,16 +144,7 @@ export const renderTutorialScreen = (playingTrack) => {
     }
   });
 
-  addEventListener("keypress", (e) => {
-    if (e.keyCode === 32) {
-      goBack();
-      renderHomeScreen();
-      // location.reload();
-    }
-  });
+  addEventListener("keypress", spaceCB);
   
-  back.addEventListener("click", () => {
-    goBack();
-    renderHomeScreen();
-  });
+  back.addEventListener("click", backCB);
 };
