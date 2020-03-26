@@ -90,6 +90,7 @@ export const renderGameplayScreen = (playingTrack) => {
     if (!paused.paused) {
       if (totalNotes.misses > 4 || songOver.done) {
         goBack();
+        window.removeEventListener("keypress", showSelectCB);
         renderGameOverScreen(totalNotes, totalScore);
         cancelAnimationFrame(animate);
       } else {

@@ -11,7 +11,7 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
     let analyzerInfo;
 
     const gainNode = audioContext.createGain();
-    if(delay > 3){
+    if(delay > 4){
       appendVolumeControl(gainNode);
       source.connect(gainNode).connect(audioContext.destination);
     } else {
@@ -100,9 +100,14 @@ export const loadSound = (songFile, goalPos, goalKeys, pressedKeys, c, totalScor
       if (audioContext.state !== "closed") audioContext.close();
     }
   });
-
-  let analyzerInfo = playSound(songFile, 3);
-  playSound(songFile, 4.48);
-  // playSound(songFile, 4.6);
+  
+  let analyzerInfo;
+  if (parseInt(songFile.duration) !== 85){
+    analyzerInfo = playSound(songFile, 3);
+    playSound(songFile, 4.48);
+  } else {
+    analyzerInfo = playSound(songFile, 4);
+    playSound(songFile, 5.48);
+  }
   return new BeatCreator(analyzerInfo);
 };

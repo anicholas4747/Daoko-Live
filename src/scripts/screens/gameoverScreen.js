@@ -46,7 +46,7 @@ export const renderGameOverScreen = (totalNotes, totalScore) => {
 
   // drawing results to the canvas
   let msg = (totalNotes.misses < 5) ? "SONG CLEARED" : "GAME OVER";
-  let where = (totalNotes.misses < 5) ? innerWidth / 3.5 : innerWidth / 2.8;
+  let where = (totalNotes.misses < 5) ? innerWidth / 2.8 : innerWidth / 2.7;
 
   c.beginPath();
   c.fillStyle = (totalNotes.misses < 5) ? "#85BDB6" : "#DB0700";
@@ -71,14 +71,14 @@ export const renderGameOverScreen = (totalNotes, totalScore) => {
 
     c.font = "50px Arial";
     c.fillStyle = "#FFC513";
-    c.fillText(`Rank: ${rank}`, innerWidth / 2.4, innerHeight / 2);
-    c.fillText(`Score: ${totalScore.score * 100}`, innerWidth / 2.8, innerHeight / 1.7);
+    c.fillText(`Rank: ${rank}`, innerWidth / 2.2, innerHeight / 2);
+    c.fillText(`Score: ${totalScore.score * 100}`, innerWidth / 2.4, innerHeight / 1.7);
     
     c.font = "40px Arial";
     c.fillStyle = "#85BDB6";
-    c.fillText(`Hits: ${totalNotes.hits}`, innerWidth / 3.2, innerHeight / 1.4);
+    c.fillText(`Hits: ${totalNotes.hits}`, innerWidth / 2.75, innerHeight / 1.4);
     c.fillStyle = "#DB0700";
-    c.fillText(`Misses: ${totalNotes.misses}`, innerWidth / 1.85, innerHeight / 1.4);
+    c.fillText(`Misses: ${totalNotes.misses}`, innerWidth / 1.8, innerHeight / 1.4);
   }
 
   if(totalNotes.misses === 0){

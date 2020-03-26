@@ -27,25 +27,25 @@ export const addScore = (totalScore, finishTime) => {
         c.fillRect(innerWidth / 2 - 125, 75, 300, 75);
         c.fill();
         c.fillStyle = "#DB0700";
-        c.fillText("3", innerWidth / 2, 125);
+        c.fillText("3", innerWidth / 2.1, 125);
       } else if (Date.now() - this.tyme < 2000) {
         c.fillStyle = "#EEE";
         c.fillRect(innerWidth / 2 - 125, 75, 300, 75);
         c.fill();
         c.fillStyle = "#DB0700";
-        c.fillText("2", innerWidth / 2, 125);
+        c.fillText("2", innerWidth / 2.1, 125);
       } else if (Date.now() - this.tyme < 3000) {
         c.fillStyle = "#EEE";
         c.fillRect(innerWidth / 2 - 125, 75, 300, 75);
         c.fill();
         c.fillStyle = "#DB0700";
-        c.fillText("1", innerWidth / 2, 125);
+        c.fillText("1", innerWidth / 2.1, 125);
       } else if (Date.now() - this.tyme < 4000) {
         c.fillStyle = "#EEE";
         c.fillRect(innerWidth / 2 - 125, 75, 300, 75);
         c.fill();
         c.fillStyle = "#DB0700";
-        c.fillText("START", innerWidth / 2.5, 125);
+        c.fillText("START", innerWidth / 2.35, 125);
       } else if (Date.now() - this.tyme < 4500) {
         c.fillStyle = "#EEE";
         c.fillRect(innerWidth / 2 - 200, 75, 400, 75);
@@ -57,7 +57,7 @@ export const addScore = (totalScore, finishTime) => {
           c.beginPath();
           c.fillStyle = "#DB0700";
           c.font = "60px Arial";
-          c.fillText("SONG CLEARED", innerWidth / 3.5, innerHeight / 2.5);
+          c.fillText("SONG CLEARED", innerWidth / 2.8, innerHeight / 2.5);
         }
   
         // score
@@ -73,7 +73,7 @@ export const addScore = (totalScore, finishTime) => {
         
         c.beginPath();
         c.fillStyle = gradientScore;
-        c.fillRect(50, 100, totalScore.score * 1.15, 40);
+        c.fillRect(50, 100, (totalScore.score / 700) * (innerWidth - 150), 40);
         c.fill();
       }
 

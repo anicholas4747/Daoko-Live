@@ -64,7 +64,7 @@ export const printBeat = (goalPos, goalKeys, paused, pressedKeys, c, totalScore,
       } else if (this.timer < 20){
         c.fillStyle = (this.result === "PERFECT") ? "#FFC513" : "#AAAAAA";
         c.font = "75px Arial";
-        c.fillText(this.result, innerWidth / 2.8, innerHeight / 2);
+        c.fillText(this.result, innerWidth / 2.6, innerHeight / 2);
         if(this.timer === 0) totalNotes.hits++;
         this.timer++;
       }
